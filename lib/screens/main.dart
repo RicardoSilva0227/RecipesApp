@@ -105,15 +105,15 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant_menu),
-            label: 'All Recipes'.tr(),
+            label: 'allRecipes'.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.note_add),
-            label: 'My Recipes'.tr(),
+            label: 'myRecipes'.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'Liked Recipes'.tr(),
+            label: 'likedRecipes'.tr(),
           ),
         ],
         currentIndex: _selectedIndex,
