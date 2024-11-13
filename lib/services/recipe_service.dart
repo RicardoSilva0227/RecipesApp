@@ -16,7 +16,7 @@ class RecipeService {
     }
 
     final response = await http.get(Uri.parse(
-      '$_baseUrl?number=20&offset=${(page - 1) * 20}&apiKey=${AppConfig.apiKey}',
+      '$_baseUrl?number=10&offset=${(page - 1) * 10}&apiKey=${AppConfig.apiKey}',
     ));
 
     if (response.statusCode == 200) {

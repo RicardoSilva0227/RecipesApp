@@ -56,9 +56,9 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                     _loadRecipes();
                   }
                 : null,
-            child: const Text('Previous').tr(),
+            child: const Text('previous').tr(),
           ),
-          Text('Page $_currentPage'),
+          Text('${'page'.tr()} $_currentPage'),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -66,7 +66,7 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
               });
               _loadRecipes();
             },
-            child: const Text('Next').tr(),
+            child: const Text('next').tr(),
           ),
         ],
       ),
@@ -91,14 +91,14 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         elevation: 5,
-                        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                         child: ListTile(
-                          contentPadding: const EdgeInsets.all(10),
+                          contentPadding: const EdgeInsets.all(20),
                           leading: Image.network(
                                   recipe.image,
-                                  width: 80,
-                                  height: 80,
-                                  fit: BoxFit.cover,
+                                  width: 120,
+                                  height: 120,
+                                  fit: BoxFit.fitWidth,
                                   loadingBuilder: (context, child, loadingProgress) {
                                     if (loadingProgress == null) return child;
                                     return const Center(child: CircularProgressIndicator());
