@@ -7,22 +7,24 @@ import '../config/config.dart';
 class RecipeService {
   final String _baseUrl = 'https://api.spoonacular.com/recipes';
 
-  Future<List<Recipe>> fetchRecipes(int page) async {
-    final canRequest = await RequestManager.canMakeRequest();
-    if (!canRequest) {
-      throw Exception('Daily request limit reached. Try again tomorrow.');
-    }
+  // Fetch recipes, optionally filter by search query
+  Future<List<Recipe>> fetchRecipes(int page, String searchQuery) async {
+    try {
+      final response = await http.get(Uri.parse(
+        '$_baseUrl/complexSearch?query=$searchQuery&apiKey=${AppConfig.apiKey}&number=10&offset=${(page - 1) * 10}',
+      ));
 
-    final response = await http.get(Uri.parse(
-      '$_baseUrl/complexSearch?number=10&offset=${(page - 1) * 10}&apiKey=${AppConfig.apiKey}',
-    ));
-
-    if (response.statusCode == 200) {
-      await RequestManager.incrementRequestCount();
-      final List data = json.decode(response.body)['results'];
-      return data.map((json) => Recipe.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load recipes');
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final recipes = (data['results'] as List)
+            .map((recipeData) => Recipe.fromJson(recipeData))
+            .toList();
+        return recipes;
+      } else {
+        throw Exception('Failed to load recipes');
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
