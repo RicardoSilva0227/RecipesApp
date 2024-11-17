@@ -37,6 +37,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +95,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
                       // Prep Time, Cook Time, Total Time Section (Nullable)
                       _buildTimeSection(),
+
+                      const SizedBox(height: 16),
+
+                      // Measurements Button
+                      ElevatedButton(
+                        onPressed: _showMeasurementDialog,
+                        child: const Text("View Measurement Conversions"),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14.0),
+                          textStyle: const TextStyle(fontSize: 16),
+                        ),
+                       ),
 
                       const SizedBox(height: 16),
 
@@ -271,7 +284,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   );
 }
 
-
   // Instructions Section (Nullable)
   Widget _buildInstructionsSection() {
     if (_recipeDetails?['instructions'] == null) {
@@ -316,4 +328,54 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       ],
     );
   }
+
+    Widget _buildMeasurementRow(String imperial, String metric) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        children: [
+          Text(imperial, style: TextStyle(fontSize: 16)),
+          const Spacer(),
+          Text(metric, style: TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
+
+
+void _showMeasurementDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Measurement Conversion"),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildMeasurementRow("1 teaspoon (tsp)", "5 ml"),
+                _buildMeasurementRow("1 tablespoon (tbsp)", "15 ml"),
+                _buildMeasurementRow("1 cup", "240 ml"),
+                _buildMeasurementRow("1 ounce (oz)", "28.35 g"),
+                _buildMeasurementRow("1 pound (lb)", "0.45 kg"),
+                _buildMeasurementRow("1 fluid ounce (fl oz)", "30 ml"),
+                _buildMeasurementRow("1 liter (L)", "1000 ml"),
+                _buildMeasurementRow("1 kilogram (kg)", "1000 g"),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: const Text("Close"),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
 }
