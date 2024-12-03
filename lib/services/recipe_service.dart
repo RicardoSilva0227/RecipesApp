@@ -45,4 +45,64 @@ class RecipeService {
       throw Exception('Failed to load recipe details');
     }
   }
+
+  Future<List<Recipe>> fetchMyRecipes() async {
+  // Mock API call or fetch from a database
+ return [
+    Recipe(
+      id: '1',
+      title: 'Test Recipe 1',
+      image: '',
+      imageType: 'jpg',
+      diets: ['Vegan'],
+      servings: 2,
+      prepTime: 10,
+      cookTime: 20,
+      readyInMinutes: 30,
+      cuisines: ['American'],
+      dishTypes: ['Dessert'],
+      extendedIngredients: [
+        {'name': 'Ingredient 1', 'amount': '100g'},
+        {'name': 'Ingredient 2', 'amount': '50ml'},
+      ],
+      instructions: 'Do something.',
+    ),
+  ];
+}
+
+Future<Recipe> addRecipe({
+  required String title,
+  required String image,
+  required List<Map<String, dynamic>> extendedIngredients,
+  required String? instructions,
+  int servings = 1,
+  int prepTime = 10,
+  int cookTime = 20,
+  int readyInMinutes = 30,
+  String imageType = 'jpg',
+  List<String> diets = const [],
+  List<String> cuisines = const [],
+  List<String> dishTypes = const [],
+}) async {
+  // Mock API call to save a recipe and return it
+  return Recipe(
+    id: DateTime.now().toIso8601String(), // Unique ID based on current time
+    title: title,
+    image: image,
+    imageType: imageType,
+    diets: diets,
+    servings: servings,
+    prepTime: prepTime,
+    cookTime: cookTime,
+    readyInMinutes: readyInMinutes,
+    cuisines: cuisines,
+    dishTypes: dishTypes,
+    extendedIngredients: extendedIngredients,
+    instructions: instructions,
+  );
+}
+}
+
+Future<void> deleteRecipe(String recipeId) async {
+  // Mock API call to delete a recipe
 }
